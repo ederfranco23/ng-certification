@@ -1,0 +1,29 @@
+<section class="app-section">
+    <div class="card bg-light">
+        <div class="card-body">
+            <h5 class="card-title">Add a location</h5>
+            <form class="row g-3" [formGroup]="locationForm" (ngSubmit)="addLocation()">
+                <div class="col-md-3">
+                    <label for="zipCode" class="form-label">Enter a zip code:</label>
+                    <input type="text" class="form-control" id="zipCode" required placeholder="Example: 69063510"
+                        formControlName="zipcode"
+                        [class.is-valid]="locationForm.get('zipcode')?.valid && (locationForm.get('zipcode')?.dirty || locationForm.get('zipcode')?.touched)"
+                        [class.is-invalid]="exists || locationForm.get('zipcode')?.invalid && (locationForm.get('zipcode')?.dirty || locationForm.get('zipcode')?.touched)">
+                    <div class="invalid-feedback" *ngIf="locationForm.get('zipcode')?.errors?.required">
+                        Please provide a zip code.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="locationForm.get('zipcode')?.errors?.minlength">
+                        The zip code must be at least 3 digits long.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="exists">
+                        The location is already included.
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <button class="btn btn-primary">Add a location</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {{ locations | json}}
+</section>

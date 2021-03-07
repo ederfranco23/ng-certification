@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap';
+@import '~ngx-toastr/toastr';
+@import '~ngx-toastr/toastr-bs4-alert';
+
+*,
+*:before,
+*:after{
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    right: 20px;
+    top: -2px;
+}
+
+.app-section {
+    margin: 20px 0px;
+}
