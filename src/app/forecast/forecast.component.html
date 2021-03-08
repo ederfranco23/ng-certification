@@ -1,15 +1,6 @@
 <section class="app-section">
 
     <div class="card mt-4 mb-4">
-        <div class="mt-4" *ngIf="!loading && noResults">
-            <div *ngIf="loading">
-                <app-loader></app-loader> Loading weather data for {{location.zipcode}}
-                ({{location.countryCode.toUpperCase()}}).
-            </div>
-            <div class="card-body">
-                <div *ngIf="apiError then apiErrorTemp; else noResultsTemp"></div>
-            </div>
-        </div>
         <div class="content" *ngIf="!loading && !noResults">
             <div class="card-header">5-day forecast for
                 <strong>{{forecastData.city.name}}</strong>&nbsp;<small>({{location.zipcode}},
@@ -18,7 +9,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let item of forecastData.list">
                     <div class="d-flex justify-content-between align-middle">
-                        <div>{{item.weekDay}}: {{item.condition}} - Min: {{item.temp?.min}}&deg; - Max:
+                        <div class="text-item">{{item.weekDay}}: {{item.condition}} - Min: {{item.temp?.min}}&deg; - Max:
                             {{item.temp?.max}}&deg;</div>
                         <div>
                             <img [src]="item.iconUrl" [alt]="item.description" [title]="item.description"
@@ -26,13 +17,23 @@
                         </div>
                     </div>
                 </li>
-
             </ul>
         </div>
+
+        <div class="mt-4" *ngIf="loading || noResults">
+            <div *ngIf="loading" class="card-body">
+                <app-loader></app-loader> Loading weather data for {{location.zipcode}}
+                ({{location.countryCode.toUpperCase()}}).
+            </div>
+            <div class="card-body" *ngIf="!loading && noResults">
+                <div *ngIf="apiError then apiErrorTemp; else noResultsTemp"></div>
+            </div>
+        </div>
+
     </div>
 
     <div class="mt-4">
-        <a routerLink="/"><i class="fas fa-long-arrow-alt-left"></i> Go back to home</a>
+        <button type="button" class="btn btn-primary" routerLink="/"><i class="fas fa-long-arrow-alt-left"></i> Go back to main page</button>
     </div>
 </section>
 

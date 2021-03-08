@@ -58,7 +58,6 @@ export class ForecastComponent implements OnInit, OnDestroy {
       )
       .subscribe((data: IForecastData) => {
         this.forecastData = data;
-        console.log(this.forecastData);
       }, error => {
         if(error.status !== 404) {
           this.apiError = true;
