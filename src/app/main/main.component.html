@@ -48,9 +48,14 @@
             </form>
         </div>
     </div>
+    
     <div class="locations-list mt-4">
-        <div *ngFor="let location of locations">
+        <h2>Weather forecast <small>(measures in Celsius degrees.)</small></h2>
+        <div *ngFor="let location of locations.reverse()">
             <app-weather-card [location]="location" (removeLocation)="removeLocation(location)"></app-weather-card>
+        </div>
+        <div *ngIf="!locations.length">
+            <p>Add a new location to show weather info.</p>
         </div>
     </div>
 </section>

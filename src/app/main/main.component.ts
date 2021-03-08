@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ICountry } from '../interfaces/country.interface';
@@ -6,13 +6,14 @@ import { CountryService } from '../services/country.service';
 import { finalize } from 'rxjs/operators';
 import { ILocation } from '../interfaces/location.interface';
 import { LocationStorageService } from '../services/location-storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
 
   locationForm!: FormGroup;
   locations!: ILocation[];
@@ -20,6 +21,7 @@ export class MainComponent implements OnInit {
   exists: boolean = false;
   ZIPCODE_SEARCH_URL!: string;
   countriesLoading: boolean = false;
+  private subscription!: Subscription;
 
   constructor(private formBuilder: FormBuilder,
     private storageService: LocationStorageService,
@@ -31,6 +33,10 @@ export class MainComponent implements OnInit {
     this.locations = this.storageService.getList();
     this.ZIPCODE_SEARCH_URL = environment.WEATHER.ZIPCODE_SEARCH_URL;
     this.getCountries();
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   addLocation() {
@@ -61,7 +67,7 @@ export class MainComponent implements OnInit {
     this.countries = [] as Array<ICountry>;
     this.countriesLoading = true;
     this.locationForm.get(`countryCode`)?.disable();
-    const subs = this.countryService.get().
+    this.subscription = this.countryService.get().
       pipe(
         finalize(() => {
           this.countriesLoading = false;
