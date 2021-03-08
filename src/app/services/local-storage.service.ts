@@ -11,7 +11,6 @@ export class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  
   get(key: string): any {
     const item: any = localStorage.getItem(key);
     if (item !== undefined) {
@@ -27,7 +26,4 @@ export class LocalStorageService {
   clear() {
     localStorage.clear();
   }
-
-
-
 }

@@ -2,21 +2,44 @@
     <div class="card bg-light">
         <div class="card-body">
             <h5 class="card-title">Add a location</h5>
-            <form class="row g-3" [formGroup]="locationForm" (ngSubmit)="addLocation()">
-                <div class="col-md-3">
-                    <label for="zipCode" class="form-label">Enter a zip code:</label>
-                    <input type="text" class="form-control" id="zipCode" required placeholder="Example: 69063510"
-                        formControlName="zipcode"
-                        [class.is-valid]="locationForm.get('zipcode')?.valid && (locationForm.get('zipcode')?.dirty || locationForm.get('zipcode')?.touched)"
-                        [class.is-invalid]="exists || locationForm.get('zipcode')?.invalid && (locationForm.get('zipcode')?.dirty || locationForm.get('zipcode')?.touched)">
-                    <div class="invalid-feedback" *ngIf="locationForm.get('zipcode')?.errors?.required">
-                        Please provide a zip code.
-                    </div>
-                    <div class="invalid-feedback" *ngIf="locationForm.get('zipcode')?.errors?.minlength">
-                        The zip code must be at least 3 digits long.
-                    </div>
-                    <div class="invalid-feedback" *ngIf="exists">
-                        The location is already included.
+            <div class="mb-2">
+                <small class="form-text text-muted"><strong>Hint:</strong> Enter the main zipcode of
+                    a city or region from selected country. If you don't know where to find it, you can search <a
+                        [href]="ZIPCODE_SEARCH_URL" target="_blank">here</a>.</small>
+            </div>
+            <hr>
+            <form class="row" [formGroup]="locationForm" (ngSubmit)="addLocation()">
+
+                <div class="col-auto">
+                    <div class="d-flex justfy-content-start align-start">
+                        <div class="mr-1">
+                            <label for="zipCode" class="form-label">Enter a zip code <small>(required)</small></label>
+                            <input type="text" class="form-control" id="zipCode" required placeholder="Example: 94040"
+                                formControlName="zipcode"
+                                [class.is-valid]="locationForm.get('zipcode')?.valid && (locationForm.get('zipcode')?.dirty || locationForm.get('zipcode')?.touched)"
+                                [class.is-invalid]="exists || locationForm.get('zipcode')?.invalid && (locationForm.get('zipcode')?.dirty || locationForm.get('zipcode')?.touched)">
+                            <div class="invalid-feedback" *ngIf="locationForm.get('zipcode')?.errors?.required">
+                                Please provide a zip code.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="locationForm.get('zipcode')?.errors?.minlength">
+                                The zip code must be at least 3 digits long.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="exists">
+                                The location is already included.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="countryCode">
+                                Country <small>(optional, US default) <app-loader *ngIf="countriesLoading"></app-loader>
+                                </small>
+                            </label>
+                            <select class="form-control" formControlName="countryCode" required name="countryCode">
+                                <option *ngFor="let country of countries" [value]="country.alpha2Code.toLowerCase()">
+                                    {{country.alpha2Code.toUpperCase()}}
+                                </option>
+                            </select>
+
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 mt-3">
@@ -25,5 +48,9 @@
             </form>
         </div>
     </div>
-    {{ locations | json}}
+    <div class="locations-list mt-4">
+        <div *ngFor="let location of locations">
+            <app-weather-card [location]="location" (removeLocation)="removeLocation(location)"></app-weather-card>
+        </div>
+    </div>
 </section>

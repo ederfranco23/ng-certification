@@ -9,6 +9,8 @@ import { ForecastComponent } from './forecast/forecast.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoaderComponent } from './loader/loader.component';
+import { WeatherCardComponent } from './weather-card/weather-card.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     TopbarComponent,
     MainComponent,
     ForecastComponent,
-    FooterComponent
+    FooterComponent,
+    LoaderComponent,
+    WeatherCardComponent
   ],
   imports: [
     BrowserModule,

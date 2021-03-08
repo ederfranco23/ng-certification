@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LocalStorageService } from '../services/local-storage.service';
+import { environment } from 'src/environments/environment';
+import { ICountry } from '../interfaces/country.interface';
+import { CountryService } from '../services/country.service';
+import { finalize } from 'rxjs/operators';
+import { ILocation } from '../interfaces/location.interface';
+import { LocationStorageService } from '../services/location-storage.service';
 
 @Component({
   selector: 'app-main',
@@ -9,40 +14,65 @@ import { LocalStorageService } from '../services/local-storage.service';
 })
 export class MainComponent implements OnInit {
 
-  public locationForm!: FormGroup;
-  public locations: String[] = [];
-  public exists: boolean = false;
-  private readonly STORED_LOCATIONS = 'STORED_LOCATIONS';
+  locationForm!: FormGroup;
+  locations!: ILocation[];
+  countries!: ICountry[];
+  exists: boolean = false;
+  ZIPCODE_SEARCH_URL!: string;
+  countriesLoading: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private storageService: LocalStorageService) {
+  constructor(private formBuilder: FormBuilder,
+    private storageService: LocationStorageService,
+    private countryService: CountryService) {
     this.formInit();
   }
 
   ngOnInit(): void {
-    const fromStorage = this.storageService.get(this.STORED_LOCATIONS);
-    this.locations = (fromStorage)? fromStorage : [];
+    this.locations = this.storageService.getList();
+    this.ZIPCODE_SEARCH_URL = environment.WEATHER.ZIPCODE_SEARCH_URL;
+    this.getCountries();
   }
 
-  public addLocation() {
+  addLocation() {
     this.locationForm.get('zipcode')?.markAsDirty();
     this.locationForm.get('zipcode')?.markAsTouched();
-    const zipcode = this.locationForm.get('zipcode')?.value;
-    this.exists = this.locations.includes(zipcode);
-
-    console.log(this.exists);
-
-    if(this.locationForm.valid) {
-      if(!this.exists) {
-        this.locations.push(zipcode);
-        this.storageService.save(this.STORED_LOCATIONS, this.locations);
-      }
+    const values: ILocation = this.locationForm.value;
+    this.exists = this.storageService.exists(values);
+    if (this.locationForm.valid && !this.exists) {
+      this.locations = this.storageService.add(values);
+      this.locationForm.reset({
+        countryCode: this.countryService.getDefault().alpha2Code
+      });
     }
+  }
+
+  removeLocation(location: ILocation) {
+    this.locations = this.storageService.delete(location);
   }
 
   private formInit() {
     this.locationForm = this.formBuilder.group({
-      zipcode: new FormControl('', [Validators.required, Validators.minLength(3)])
+      zipcode: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      countryCode: new FormControl(this.countryService.getDefault().alpha2Code, [Validators.required])
     });
+  }
+
+  private getCountries() {
+    this.countries = [] as Array<ICountry>;
+    this.countriesLoading = true;
+    this.locationForm.get(`countryCode`)?.disable();
+    const subs = this.countryService.get().
+      pipe(
+        finalize(() => {
+          this.countriesLoading = false;
+          this.locationForm.get(`countryCode`)?.enable();
+        })
+      ).
+      subscribe(data => {
+        this.countries = data;
+      }, () => {
+        this.countries.push(this.countryService.getDefault())
+      });
   }
 
 }
