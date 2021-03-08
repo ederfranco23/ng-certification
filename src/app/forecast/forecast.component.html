@@ -1,1 +1,54 @@
-<p>forecast works!</p>
+<section class="app-section">
+
+    <div class="card mt-4 mb-4">
+        <div class="mt-4" *ngIf="!loading && noResults">
+            <div *ngIf="loading">
+                <app-loader></app-loader> Loading weather data for {{location.zipcode}}
+                ({{location.countryCode.toUpperCase()}}).
+            </div>
+            <div class="card-body">
+                <div *ngIf="apiError then apiErrorTemp; else noResultsTemp"></div>
+            </div>
+        </div>
+        <div class="content" *ngIf="!loading && !noResults">
+            <div class="card-header">5-day forecast for
+                <strong>{{forecastData.city.name}}</strong>&nbsp;<small>({{location.zipcode}},
+                    {{location.countryCode.toUpperCase()}})</small>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let item of forecastData.list">
+                    <div class="d-flex justify-content-between align-middle">
+                        <div>{{item.weekDay}}: {{item.condition}} - Min: {{item.temp?.min}}&deg; - Max:
+                            {{item.temp?.max}}&deg;</div>
+                        <div>
+                            <img [src]="item.iconUrl" [alt]="item.description" [title]="item.description"
+                            class="icon">
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a routerLink="/"><i class="fas fa-long-arrow-alt-left"></i> Go back to home</a>
+    </div>
+</section>
+
+
+<ng-template #noResultsTemp>
+    <h5><span class="fas fa-exclamation-circle text-danger pr-2"></span> Location {{location.zipcode}}
+        ({{location.countryCode.toUpperCase()}}) not found.</h5>
+    <p><strong>Hint:</strong> Check if the zipcode provided match an existing location.</p>
+</ng-template>
+
+<ng-template #apiErrorTemp>
+    <h5><span class="fas fa-exclamation-triangle text-warning pr-2"></span> API error trying to fetch weather data
+        for
+        {{location.zipcode}} ({{location.countryCode.toUpperCase()}}).</h5>
+    <p><strong>Hint:</strong> Reload this page or try again later.</p>
+    <button type="button" class="btn btn-sm btn-info btn-close" (click)="getForecast()">
+        Retry
+    </button>
+</ng-template>

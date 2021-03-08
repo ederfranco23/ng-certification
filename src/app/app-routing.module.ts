@@ -13,6 +13,10 @@ const routes: Routes = [
     component: ForecastComponent
   },
   {
+    path: 'forecast/:zipcode/:countryCode',
+    component: ForecastComponent
+  },
+  {
     path: '**',
     redirectTo: '/'
   }

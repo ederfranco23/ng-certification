@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { ILocation } from '../interfaces/location.interface';
 import { IWeatherData } from '../interfaces/weather-data.interface';
 import { WeatherService } from '../services/weather.service';
@@ -34,6 +35,15 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
     this.removeLocation.emit(this.location);
   }
 
+  getLink() {
+    let link = `forecast/${this.location.zipcode}`;
+    // Only add country when it is needed
+    if (this.location.countryCode !== environment.WEATHER.DEFAULT_COUNTRY_CODE) {
+      link = `${link}/${this.location.countryCode}`;
+    }
+    return link;
+  }
+
   getWeather() {
     this.loading = true;
     this.subscription = this.weatherService.getWeather(this.location)
@@ -50,10 +60,8 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
       )
       .subscribe((data: IWeatherData) => {
         this.weatherData = data;
-        console.log(this.weatherData);
       }, error => {
-        console.log(error.status);
-        if(error.status !== 404) {
+        if (error.status !== 404) {
           this.apiError = true;
         }
         this.noResults = true;

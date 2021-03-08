@@ -17,20 +17,27 @@
             </div>
             <div class="card-data" *ngIf="!loading && !noResults">
                 <div class="card-info">
-                    <h3>{{weatherData.name}} <small>({{location.zipcode}},
-                            {{location.countryCode.toUpperCase()}})</small></h3>
+                    <div class="d-flex justify-content-start align-middle">
+                        <h3>{{weatherData.name}} <small>({{location.zipcode}},
+                                {{location.countryCode.toUpperCase()}})</small></h3>
+                        <button type="button" class="btn btn-sm btn-link btn-close" (click)="getWeather()"
+                            title="Refresh info">
+                            <span class="fas fa-sync text-info"></span>
+                        </button>
+                    </div>
                     <hr>
                     <h4>Current conditions: {{weatherData.condition}}</h4>
                     <h5>Temperatures today:</h5>
                     <p>Current: {{weatherData.main.temp}}&deg; - Max: {{weatherData.main.temp_min}}&deg; - Min:
                         {{weatherData.main.temp_max}}&deg;</p>
                     <p>
-                        <a routerLink="forecast/{{location.zipcode}}/{{location.countryCode}}">Show 5-day forecast for
+                        <a [routerLink]="getLink()">Show 5-day forecast for
                             {{weatherData.name}} ({{location.countryCode.toUpperCase()}}).</a>
                     </p>
                 </div>
                 <div class="card-icon">
-                    <img [src]="weatherData.iconUrl" [alt]="weatherData.description" [title]="weatherData.description" class="icon-lg">
+                    <img [src]="weatherData.iconUrl" [alt]="weatherData.description" [title]="weatherData.description"
+                        class="icon-lg">
                 </div>
             </div>
         </div>
@@ -40,11 +47,14 @@
 <ng-template #noResultsTemp>
     <h5><span class="fas fa-exclamation-circle text-danger pr-2"></span> Location {{location.zipcode}}
         ({{location.countryCode.toUpperCase()}}) not found.</h5>
-    <p><strong>Hint:</strong> Check if the zip and country code provided match an existing location.</p>
+    <p><strong>Hint:</strong> Check if the zipcode provided match an existing location.</p>
 </ng-template>
 
 <ng-template #apiErrorTemp>
     <h5><span class="fas fa-exclamation-triangle text-warning pr-2"></span> API error trying to fetch weather data for
         {{location.zipcode}} ({{location.countryCode.toUpperCase()}}).</h5>
     <p><strong>Hint:</strong> Reload this page or try again later.</p>
+    <button type="button" class="btn btn-sm btn-info btn-close" (click)="getWeather()">
+        Retry
+    </button>
 </ng-template>

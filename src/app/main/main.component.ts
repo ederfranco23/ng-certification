@@ -56,6 +56,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.locations = this.storageService.delete(location);
   }
 
+  goTop() {
+    window.scroll(0,0);
+  }
+
   private formInit() {
     this.locationForm = this.formBuilder.group({
       zipcode: new FormControl('', [Validators.required, Validators.minLength(3)]),
