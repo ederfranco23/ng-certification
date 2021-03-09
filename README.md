@@ -39,4 +39,4 @@ Just run `npx ng deploy --base-href=https://ederfranco23.github.io/ng-certificat
 
 ## Contact
 
-You can send me an email to [efranco23@gmail.com](efranco23@gmail.com).
+You can send me an email to [efranco23@gmail.com](mailto:efranco23@gmail.com).
