@@ -26,11 +26,16 @@ Just run `npm install` and `npx ng serve` and then open `http://localhost:4200/`
 - Updated bootstap and Angular versions;
 - Layout changes to provide feedback and better interaction experience;
 - Input validations and hints;
-- Optional choice of country code to add valid zipcodes outside US.
+- Optional choice of country code to add valid zipcodes outside US;
+- Deploy to Github pages.
 
 ## Hosted application
 
-You can see the hosted application visiting [https://ederfranco23.github.io/ng-certification-live/](https://ederfranco23.github.io/ng-certification-live/)
+You can see the hosted application visiting [https://ederfranco23.github.io/ng-certification-live/](https://ederfranco23.github.io/ng-certification-live/).
+
+## Deploy to Github pages
+
+Just run `npx ng deploy --base-href=https://ederfranco23.github.io/ng-certification-live/` and visit the [hosted application URL](https://ederfranco23.github.io/ng-certification-live/).
 
 ## Contact
 
