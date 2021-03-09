@@ -30,7 +30,7 @@ Just run `npm install` and `npx ng serve` and then open `http://localhost:4200/`
 
 ## Hosted application
 
-You can see the hosted application visiting [https://ederfranco23.github.io/ng-certification/](https://ederfranco23.github.io/ng-certification/)
+You can see the hosted application visiting [https://ederfranco23.github.io/ng-certification-live/](https://ederfranco23.github.io/ng-certification-live/)
 
 ## Contact
 
