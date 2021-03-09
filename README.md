@@ -21,7 +21,7 @@ Just run `npm install` and `npx ng serve` and then open `http://localhost:4200/`
 - Display new locations as the user adds new zipcodes using the input field;
 - Allow users to direct check 5-day forecast in a page routed as /forecast/:zipcode.
 
-## Improvments
+## Improvements
 
 - Updated bootstap and Angular versions;
 - Layout changes to provide feedback and better interaction experience;
