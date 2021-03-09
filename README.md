@@ -31,11 +31,11 @@ Just run `npm install` and `npx ng serve` and then open `http://localhost:4200/`
 
 ## Hosted application
 
-You can see the hosted application visiting (https://ederfranco23.github.io/ng-certification-live/)[https://ederfranco23.github.io/ng-certification-live/].
+You can see the hosted application visiting [https://ederfranco23.github.io/ng-certification-live/](https://ederfranco23.github.io/ng-certification-live/).
 
 ## Deploy to Github pages
 
-Just run `npx ng deploy [base-href=https://ederfranco23.github.io/ng-certification-live/` and visit the (hosted application URL)[https://ederfranco23.github.io/ng-certification-live/].
+Just run `npx ng deploy base-href=https://ederfranco23.github.io/ng-certification-live/` and visit the [hosted application URL](https://ederfranco23.github.io/ng-certification-live/).
 
 ## Contact
 
