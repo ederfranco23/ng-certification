@@ -1,27 +1,37 @@
-# NgCertification
+# Angular Certification mini-project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
+This project as built as a requirement to obtain the (Angular Certification)[https://www.angulartraining.com/angular-certification.html].
 
-## Development server
+## What is it?
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+A simple weather info application, using the (Open Weather Map API)[https://openweathermap.org/api] to show current weather conditions and 5-day forecast of given zipcodes.
 
-## Code scaffolding
+## Instructions to run
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Just run `npm install` and `npx ng serve` and then open `http://localhost:4200/` on your browser.
 
-## Build
+## Implemented requirements
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- Allow users to enter a zipcode;
+- Store zipcodes in local storage;
+- Restore zipcodes from local storage when page is reloaded or reopened;
+- Show the weather conditions for given location, using each of the provided zipcodes;
+- Display name of the city, weather conditions, temperatures, a relevante weather icon and a link to see 5-day forecast;
+- Remove location from zipcode list when clicking the "x";
+- Display new locations as the user adds new zipcodes using the input field;
+- Allow users to direct check 5-day forecast in a page routed as /forecast/:zipcode.
 
-## Running unit tests
+## Improvments
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Updated bootstap and Angular versions;
+- Layout changes to provide feedback and better interaction experience;
+- Input validations and hints;
+- Optional choice of country code to add valid zipcodes outside US.
 
-## Running end-to-end tests
+## Hosted application
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+You can see the hosted application visiting [https://ederfranco23.github.io/ng-certification/](https://ederfranco23.github.io/ng-certification/)
 
-## Further help
+## Contact
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+You can send me an email to (efranco23@gmail.com)[efranco23@gmail.com] :)
