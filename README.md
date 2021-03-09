@@ -1,10 +1,10 @@
 # Angular Certification mini-project
 
-This project as built as a requirement to obtain the (Angular Certification)[https://www.angulartraining.com/angular-certification.html].
+This project as built as a requirement to obtain the [Angular Certification](https://www.angulartraining.com/angular-certification.html).
 
 ## What is it?
 
-A simple weather info application, using the (Open Weather Map API)[https://openweathermap.org/api] to show current weather conditions and 5-day forecast of given zipcodes.
+A simple weather info application, using the [Open Weather Map API](https://openweathermap.org/api) to show current weather conditions and 5-day forecast of given zipcodes.
 
 ## Instructions to run
 
@@ -31,12 +31,12 @@ Just run `npm install` and `npx ng serve` and then open `http://localhost:4200/`
 
 ## Hosted application
 
-You can see the hosted application visiting [https://ederfranco23.github.io/ng-certification-live/](https://ederfranco23.github.io/ng-certification-live/).
+You can see the hosted application visiting (https://ederfranco23.github.io/ng-certification-live/)[https://ederfranco23.github.io/ng-certification-live/].
 
 ## Deploy to Github pages
 
-Just run `npx ng deploy --base-href=https://ederfranco23.github.io/ng-certification-live/` and visit the [hosted application URL](https://ederfranco23.github.io/ng-certification-live/).
+Just run `npx ng deploy [base-href=https://ederfranco23.github.io/ng-certification-live/` and visit the (hosted application URL)[https://ederfranco23.github.io/ng-certification-live/].
 
 ## Contact
 
-You can send me an email to (efranco23@gmail.com)[efranco23@gmail.com] :)
+You can send me an email to [efranco23@gmail.com](efranco23@gmail.com) :]
